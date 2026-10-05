@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <!-- Windows 10 SDK projection: needed for the MSIX StartupTask API (Microsoft Store build). -->
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AssemblyName>LePaSentinel</AssemblyName>
+    <RootNamespace>LePaSentinel</RootNamespace>
+    <StartupObject>LePaSentinel.Program</StartupObject>
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+
+    <Version>1.0.0</Version>
+    <Product>LePa Sentinel</Product>
+    <Company>LePa s.r.l.</Company>
+    <Copyright>Copyright © 2026 LePa s.r.l.</Copyright>
+    <Description>Tray monitor for Claude Code sessions</Description>
+
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <!-- build.ps1 publishes self-contained (no .NET install needed) and not single-file:
+         the hook runs on every Claude Code event, so start-up time matters. -->
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <SatelliteResourceLanguages>en;it</SatelliteResourceLanguages>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\app.ico" />
+  </ItemGroup>
+
+</Project>

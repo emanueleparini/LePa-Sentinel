@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  MSIX manifest for the Microsoft Store build. build.ps1 -Msix fills the $TOKENS$ in from
+  packaging/msix/identity.json (values from Partner Center → Product identity) and the app version.
+-->
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  IgnorableNamespaces="uap uap3 desktop rescap">
+
+  <Identity Name="$IDENTITY_NAME$" Publisher="$PUBLISHER$" Version="$VERSION$" ProcessorArchitecture="x64" />
+
+  <Properties>
+    <DisplayName>LePa Sentinel</DisplayName>
+    <PublisherDisplayName>$PUBLISHER_DISPLAY_NAME$</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.26100.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="en-us" />
+    <Resource Language="it-it" />
+  </Resources>
+
+  <Applications>
+    <Application Id="LePaSentinel" Executable="LePaSentinel.exe" EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements
+        DisplayName="LePa Sentinel"
+        Description="Tray monitor for Claude Code sessions: status, timers and a sound when a task is done."
+        BackgroundColor="transparent"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
+      </uap:VisualElements>
+
+      <Extensions>
+        <!-- Stable path for the Claude Code hooks: %LOCALAPPDATA%\Microsoft\WindowsApps\LePaSentinel.exe
+             (the package folder changes on every update). -->
+        <uap3:Extension Category="windows.appExecutionAlias" Executable="LePaSentinel.exe" EntryPoint="Windows.FullTrustApplication">
+          <uap3:AppExecutionAlias>
+            <desktop:ExecutionAlias Alias="LePaSentinel.exe" />
+          </uap3:AppExecutionAlias>
+        </uap3:Extension>
+
+        <!-- "Start with Windows" (TaskId must match AppInfo.StartupTaskId); off until the user enables it. -->
+        <desktop:Extension Category="windows.startupTask" Executable="LePaSentinel.exe" EntryPoint="Windows.FullTrustApplication">
+          <desktop:StartupTask TaskId="LePaSentinelStartup" Enabled="false" DisplayName="LePa Sentinel" />
+        </desktop:Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+</Package>

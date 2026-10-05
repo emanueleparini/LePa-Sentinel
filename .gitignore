@@ -1,0 +1,17 @@
+# Build output
+bin/
+obj/
+artifacts/
+dist/
+
+# Signing plug-in downloaded by build.ps1
+.tools/
+
+# IDE
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Local Claude Code settings
+.claude/settings.local.json

@@ -1,0 +1,32 @@
+name: build
+
+# Checks every push and pull request; releases are built by release.yml.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Install Inno Setup
+        run: choco install innosetup -y --no-progress
+
+      - name: Build (publish, zip, installer, MSIX)
+        shell: pwsh
+        run: ./build.ps1 -Msix
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lepa-sentinel-unsigned
+          path: |
+            artifacts/*.zip
+            artifacts/*.exe
+            artifacts/*.msix

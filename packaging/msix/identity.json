@@ -1,0 +1,6 @@
+{
+  "_comment": "Copy these three values from Partner Center → your app → Product management → Product identity.",
+  "IdentityName": "LePa.LePaSentinel",
+  "Publisher": "CN=00000000-0000-0000-0000-000000000000",
+  "PublisherDisplayName": "LePa s.r.l."
+}
